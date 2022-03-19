@@ -1,5 +1,5 @@
-import adapter from '@sveltejs/adapter-auto';
-//import adapter from '@sveltejs/adapter-static'
+//import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-static'
 import sveltePreprocess from 'svelte-preprocess'
 import { mdsvex } from 'mdsvex'
 
@@ -7,7 +7,11 @@ import { mdsvex } from 'mdsvex'
 const config = {
 	extensions: ['.svelte', '.md', '.svelte.md'],
 	kit: {
-		adapter: adapter()
+		adapter: adapter(),
+		prerender: {
+			// This can be false if you're using a fallback (i.e. SPA mode)
+			default: true
+		}
 	},
 	preprocess: [
 		mdsvex({
