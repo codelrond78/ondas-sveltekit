@@ -1,6 +1,6 @@
 <script>
 	import "@carbon/charts/styles.min.css";
-	import "carbon-components/css/carbon-components.min.css";
+	//import "carbon-components/css/carbon-components.min.css";
 	import { StackedAreaChart } from "@carbon/charts-svelte";
 </script>
 
