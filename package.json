@@ -14,7 +14,7 @@
     "@svelte-use/core": "^0.11.0",
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/adapter-static": "^1.0.0-next.29",
-    "@sveltejs/adapter-vercel": "^1.0.0-next.0",
+    "@sveltejs/adapter-vercel": "^1.0.0-next.47",
     "@sveltejs/kit": "next",
     "d3": "^7.3.0",
     "katex": "^0.15.3",
