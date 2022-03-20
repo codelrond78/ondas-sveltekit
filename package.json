@@ -6,10 +6,12 @@
     "build": "svelte-kit build",
     "package": "svelte-kit package",
     "preview": "svelte-kit preview",
-    "prepare": "svelte-kit sync"
+    "prepare": "svelte-kit sync",
+    "deploy": "surge --domain https://discreet-face.surge.sh build/"
   },
   "devDependencies": {
     "@carbon/charts-svelte": "^0.55.1",
+    "@svelte-use/core": "^0.11.0",
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/adapter-static": "^1.0.0-next.29",
     "@sveltejs/kit": "next",
