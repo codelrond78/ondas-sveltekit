@@ -9,8 +9,10 @@
   export let date
 </script>
 
-<h1>{title}</h1>
+<h1 class="text-2xl">{title}</h1>
 
 <p>Published: {date}</p>
 
-<slot />
+<article class="prose">
+  <slot />
+</article>

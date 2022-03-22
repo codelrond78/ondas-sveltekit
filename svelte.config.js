@@ -1,6 +1,7 @@
 //import adapter from '@sveltejs/adapter-vercel'
 import adapter from '@sveltejs/adapter-static'
 import sveltePreprocess from 'svelte-preprocess'
+import WindiCSS from 'vite-plugin-windicss'
 import { mdsvex } from 'mdsvex'
 
 const production = process.env.NODE_ENV === 'production';
@@ -11,6 +12,9 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		vite: {
+			plugins: [
+       	WindiCSS(),
+     	],
 			optimizeDeps: {
 				include: ['@carbon/charts'],
 			},
