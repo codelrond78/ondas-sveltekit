@@ -1,8 +1,7 @@
 <!-- _post.svelte -->
 <script context="module">
   //import 'prismjs/themes/prism.css';
-  import '$lib/styles/prism-gruvbox-light.css';
-  //https://github.com/PrismJS/prism-themes/blob/master/themes/prism-duotone-dark.css
+  import '$lib/styles/prism-solarized-dark-atom.css';
 </script>
 
 <script>

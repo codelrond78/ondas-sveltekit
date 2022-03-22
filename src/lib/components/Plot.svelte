@@ -83,6 +83,7 @@
 	}
 ]}
 	options={{
+	"animations": false,
 	"title": "Stacked area (time series)",
 	"axes": {
 		"left": {
