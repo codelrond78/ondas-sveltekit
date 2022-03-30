@@ -26,5 +26,7 @@
     "vite-plugin-windicss": "^1.8.3"
   },
   "type": "module",
-  "dependencies": {}
+  "dependencies": {
+    "windicss": "^3.5.1"
+  }
 }
