@@ -2,12 +2,12 @@
   "name": "ondas-sveltekit",
   "version": "0.0.1",
   "scripts": {
-    "dev": "svelte-kit dev",
+    "dev": "svelte-kit dev --host 0.0.0.0",
     "build": "svelte-kit build",
     "package": "svelte-kit package",
     "preview": "svelte-kit preview",
     "prepare": "svelte-kit sync",
-    "deploy": "surge --domain https://discreet-face.surge.sh build/"
+    "deploy": "svelte-kit build && surge --domain https://discreet-face.surge.sh build/"
   },
   "devDependencies": {
     "@carbon/charts-svelte": "^0.55.1",
@@ -26,5 +26,7 @@
     "vite-plugin-windicss": "^1.8.3"
   },
   "type": "module",
-  "dependencies": {}
+  "dependencies": {
+    "windicss": "^3.5.1"
+  }
 }
