@@ -1,12 +1,26 @@
 <script>
 	import "@carbon/charts/styles.min.css";
-	//import "carbon-components/css/carbon-components.min.css";
 	import { StackedAreaChart } from "@carbon/charts-svelte";
-</script>
+  import { onDestroy } from 'svelte';
 
-<StackedAreaChart
-	data={[
-	{
+let counter = 0;
+  
+	const handle = () => {
+    data[0].value -= 1000;
+    data[1].value -= 1000;
+    data[2].value -= 1000;
+    data[3].value -= 1000;
+    data[4].value -= 1000;
+    data = data;
+    counter += 1;
+    console.log(counter)
+  }
+	const interval = setInterval(handle, 100);
+
+	onDestroy(() => clearInterval(interval));
+
+let data = [
+  /*{
 		"group": "Dataset 1",
 		"date": "2018-12-31T23:00:00.000Z",
 		"value": 10000
@@ -30,7 +44,7 @@
 		"group": "Dataset 1",
 		"date": "2019-01-16T23:00:00.000Z",
 		"value": 51213
-	},
+	},*/
 	{
 		"group": "Dataset 2",
 		"date": "2018-12-31T23:00:00.000Z",
@@ -55,7 +69,7 @@
 		"group": "Dataset 2",
 		"date": "2019-01-16T23:00:00.000Z",
 		"value": 55213
-	},
+	},/*
 	{
 		"group": "Dataset 3",
 		"date": "2018-12-31T23:00:00.000Z",
@@ -80,8 +94,13 @@
 		"group": "Dataset 3",
 		"date": "2019-01-16T23:00:00.000Z",
 		"value": 25213
-	}
-]}
+	}*/
+];
+  
+</script>
+
+<StackedAreaChart
+	data={data}
 	options={{
 	"animations": false,
 	"title": "Stacked area (time series)",
