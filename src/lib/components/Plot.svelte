@@ -15,7 +15,7 @@ let counter = 0;
     counter += 1;
     console.log(counter)
   }
-	const interval = setInterval(handle, 100);
+	const interval = setInterval(handle, 50);
 
 	onDestroy(() => clearInterval(interval));
 
