@@ -23,6 +23,7 @@
     "sass": "^1.49.9",
     "svelte": "^3.44.0",
     "svelte-preprocess": "^4.10.4",
+    "svelte-range-slider-pips": "^2.0.3",
     "vite-plugin-windicss": "^1.8.3"
   },
   "type": "module",
