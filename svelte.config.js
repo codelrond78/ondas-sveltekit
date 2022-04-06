@@ -15,12 +15,13 @@ const config = {
 			plugins: [
        	WindiCSS(),
      	],
-			optimizeDeps: {
+			/*optimizeDeps: {
 				include: ['@carbon/charts'],
 			},
 			ssr: {
 				noExternal: [production && '@carbon/charts'].filter(Boolean),
 			},
+			*/
 		},
 		prerender: {
 			// This can be false if you're using a fallback (i.e. SPA mode)

@@ -1,15 +1,47 @@
 <script>
     import { LayerCake, Svg } from 'layercake';
     import Scatter from './Scatter.svelte'
+    import { onDestroy } from 'svelte';
+	import Ring from 'ringjs';
+    import {range} from 'range';
 
-    // Define some data
-    const points = [
-      {x: 0, y: 0},
-      {x: 5, y: 10},
-      {x: 10, y: 20},
-      {x: 15, y: 30},
-      {x: 20, y: 40}
-    ];
+    let ring = new Ring(50);
+
+    let fi0 = 0.0;
+    let frecuencia = [1.0];
+    let amplitud = [1.0];
+
+    function onda(t){
+        return amplitud[0]*Math.sin(2*Math.PI*frecuencia[0]*t + fi0)
+    }
+
+    const t0 = 5; // 5 segundos, ventana inicial de 0 a 5 segundos
+    const delta = 0.1; // 0.1 segundos, intervalo para calculo
+
+    range(0, t0, delta).forEach((t) => ring.push({
+		x: t,
+		y: onda(t)
+	}));
+
+    let points = ring.toArray()
+  
+	let t = 0;
+
+	const handle = () => {	
+		return ;			
+		ring.push({
+			x: t0 + t,
+            y: onda(t0 + t)
+		})
+		points = ring.toArray();
+		t = t + delta;
+	}
+	const interval = setInterval(handle, 1000.0*delta);
+
+    onDestroy(() => {
+		console.log('on destroy cancel interval')
+		clearInterval(interval)
+	});
   </script>
   
   <style>
