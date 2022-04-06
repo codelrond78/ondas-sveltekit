@@ -1,11 +1,14 @@
 <script>
     import { LayerCake, Svg } from 'layercake';
-    import Scatter from './Scatter.svelte'
+    import RangeSlider from "svelte-range-slider-pips";
+    import Line from './Line.svelte'
     import { onDestroy } from 'svelte';
 	import Ring from 'ringjs';
     import {range} from 'range';
 
-    let ring = new Ring(50);
+    const t0 = 5; // 5 segundos, ventana inicial de 0 a 5 segundos
+    const delta = 0.05;
+    let ring = new Ring(t0/delta);
 
     let fi0 = 0.0;
     let frecuencia = [1.0];
@@ -14,9 +17,6 @@
     function onda(t){
         return amplitud[0]*Math.sin(2*Math.PI*frecuencia[0]*t + fi0)
     }
-
-    const t0 = 5; // 5 segundos, ventana inicial de 0 a 5 segundos
-    const delta = 0.1; // 0.1 segundos, intervalo para calculo
 
     range(0, t0, delta).forEach((t) => ring.push({
 		x: t,
@@ -28,7 +28,6 @@
 	let t = 0;
 
 	const handle = () => {	
-		return ;			
 		ring.push({
 			x: t0 + t,
             y: onda(t0 + t)
@@ -45,12 +44,6 @@
   </script>
   
   <style>
-    /*
-      The wrapper div needs to have an explicit width and height in CSS.
-      It can also be a flexbox child or CSS grid element.
-      The point being it needs dimensions since the <LayerCake> element will
-      expand to fill it.
-    */
     .chart-container {
       width: 100%;
       height: 300px;
@@ -64,7 +57,16 @@
       y='y'
     >
         <Svg>        
-            <Scatter fill={'blue'} r={3} />
+            <!--<Scatter fill={'blue'} r={3} />-->
+            <Line />
         </Svg>
     </LayerCake>
   </div>
+
+  <button on:click={()=>clearInterval(interval)} 
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    Stop
+  </button>
+
+<span>Amplitud: {amplitud[0]}</span><RangeSlider min={0} max={10.0} bind:values={amplitud} /> 
+<span>Frecuencia: {frecuencia[0]}</span><RangeSlider min={1} max={10.0} bind:values={frecuencia} />
