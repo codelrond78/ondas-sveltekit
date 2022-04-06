@@ -19,6 +19,7 @@
     "d3": "^7.3.0",
     "disqus-svelte": "^1.0.9",
     "katex": "^0.15.3",
+    "layercake": "^6.1.0",
     "mdsvex": "^0.10.5",
     "sass": "^1.49.9",
     "svelte": "^3.44.0",
@@ -29,6 +30,7 @@
   "type": "module",
   "dependencies": {
     "felte": "^1.1.5",
+    "range": "^0.0.3",
     "ringjs": "^0.0.1",
     "vest": "^4.3.1",
     "windicss": "^3.5.1"
