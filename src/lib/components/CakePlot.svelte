@@ -30,7 +30,7 @@
     }
 
     function derivada(t){
-      return amplitud[0]*Math.sin(2*Math.PI*frecuencia[0]*t + Math.PI)
+      return amplitud[0]*Math.sin(0.5*2*Math.PI*frecuencia[0]*t + Math.PI)
     }
 
     range(0, t0, delta).forEach((t) => {
@@ -49,7 +49,7 @@
 	  let t = 0;
 
     const handle = () => {	
-      return;
+      //return;
       ring.push(
         {
           x: t0 + t,
@@ -61,7 +61,7 @@
           y: derivada(t0 + t)
         })
       points = ring.toArray();
-      pointsDerivada = ring.toArray();
+      pointsDerivada = ringDerivada.toArray();
       t = t + delta;
     }
     const interval = setInterval(handle, 1000.0*delta);
@@ -72,6 +72,7 @@
 	});
 
   $: {
+    data = []
     data.push({type: 'onda', values: points})
     data.push({type: 'derivada', values: pointsDerivada})
     data = data
