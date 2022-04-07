@@ -1,46 +1,83 @@
 <script>
     import { LayerCake, Svg } from 'layercake';
     import RangeSlider from "svelte-range-slider-pips";
-    import Line from './Line.svelte'
+    //import Line from './Line.svelte'
+    import MultiLine from './MultiLine.svelte'
     import { onDestroy } from 'svelte';
-	import Ring from 'ringjs';
+  	import Ring from 'ringjs';
     import {range} from 'range';
+
+    const seriesColors = ['#ffe4b8', '#ffb3c0'];
+    const seriesNames = ['onda', 'derivada'];
+    const zKey = 'type';
 
     const t0 = 5; // 5 segundos, ventana inicial de 0 a 5 segundos
     const delta = 0.05;
     let ring = new Ring(t0/delta);
+    let ringDerivada = new Ring(t0/delta);
 
     let fi0 = 0.0;
     let frecuencia = [1.0];
     let amplitud = [1.0];
+    let data = [];
+
+    const flatten = data => data.reduce((memo, group) => {
+      return memo.concat(group.values);
+    }, []);
 
     function onda(t){
         return amplitud[0]*Math.sin(2*Math.PI*frecuencia[0]*t + fi0)
     }
 
-    range(0, t0, delta).forEach((t) => ring.push({
-		x: t,
-		y: onda(t)
-	}));
+    function derivada(t){
+      return amplitud[0]*Math.sin(2*Math.PI*frecuencia[0]*t + Math.PI)
+    }
+
+    range(0, t0, delta).forEach((t) => {
+      ring.push({
+        x: t,
+        y: onda(t)
+      });
+      ringDerivada.push({
+        x: t,
+        y: derivada(t)
+      });
+    });
 
     let points = ring.toArray()
-  
-	let t = 0;
+    let pointsDerivada = ringDerivada.toArray()
+	  let t = 0;
 
-	const handle = () => {	
-		ring.push({
-			x: t0 + t,
-            y: onda(t0 + t)
-		})
-		points = ring.toArray();
-		t = t + delta;
-	}
-	const interval = setInterval(handle, 1000.0*delta);
+    const handle = () => {	
+      return;
+      ring.push(
+        {
+          x: t0 + t,
+          y: onda(t0 + t)
+        })
+        ringDerivada.push(
+        {
+          x: t0 + t,
+          y: derivada(t0 + t)
+        })
+      points = ring.toArray();
+      pointsDerivada = ring.toArray();
+      t = t + delta;
+    }
+    const interval = setInterval(handle, 1000.0*delta);
 
     onDestroy(() => {
 		console.log('on destroy cancel interval')
 		clearInterval(interval)
 	});
+
+  $: {
+    data.push({type: 'onda', values: points})
+    data.push({type: 'derivada', values: pointsDerivada})
+    data = data
+  }
+
+
   </script>
   
   <style>
@@ -52,13 +89,16 @@
   
   <div class="chart-container">
     <LayerCake
-      data={ points }
+      data={ data }
       x='x'
       y='y'
+      z={zKey}
+      flatData={flatten(data)}
+      zDomain={seriesNames}
+      zRange={seriesColors}
     >
         <Svg>        
-            <!--<Scatter fill={'blue'} r={3} />-->
-            <Line />
+            <MultiLine />
         </Svg>
     </LayerCake>
   </div>
