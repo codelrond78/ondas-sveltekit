@@ -30,7 +30,7 @@
     }
 
     function derivada(t){
-      return amplitud[0]*Math.sin(0.5*2*Math.PI*frecuencia[0]*t + Math.PI)
+      return amplitud[0]*Math.sin(0.5*2*Math.PI*t + Math.PI)
     }
 
     range(0, t0, delta).forEach((t) => {
